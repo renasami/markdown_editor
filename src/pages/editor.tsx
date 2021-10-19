@@ -52,7 +52,7 @@ export const Editor: React.FC = () => {
   return (
     <>
       <Header>
-        Markdown Editor
+        Markdown to PDF Editor
       </Header>
       <Wrapper>
         <TextArea 
