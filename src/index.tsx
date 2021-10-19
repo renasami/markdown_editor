@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { createGlobalStyle } from 'styled-components'
 import reportWebVitals from './reportWebVitals';
+import { Editor } from './pages/editor'
+
+const GlobalStyle = createGlobalStyle`
+    body * {
+        box-sizing:border-box;
+    }
+`
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalStyle/>
+    <Editor/>
   </React.StrictMode>,
   document.getElementById('root')
 );
