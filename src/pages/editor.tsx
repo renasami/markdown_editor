@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from "styled-components"
 import { useState } from 'react'
+import  ReactMarkdown from 'react-markdown'
 import { useStateWithStorage } from '../hooks/useStateWithStorage'
 
 const Header = styled.header`
@@ -59,7 +60,9 @@ export const Editor: React.FC = () => {
             )}
         value={text}
          />
-        <Preview>プレビューエリア</Preview>
+        <Preview>
+            <ReactMarkdown children={text} />
+        </Preview>
       </Wrapper>
     </>
   )
