@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from "styled-components"
 import { useState } from 'react'
+import jsPDF from 'jspdf'
 import  ReactMarkdown from 'react-markdown'
 import { useStateWithStorage } from '../hooks/useStateWithStorage'
 import HTMLToPDF from 'convert-html-to-pdf'
@@ -47,33 +48,15 @@ const Preview = styled.div`
   width: 50vw;
 `
 
-type pdfAreaProps = {
-  children?:React.ReactNode
-}
-const ToPdfArea = (pdfAreaProps: pdfAreaProps) => {
-  return (
-    <>
-      {pdfAreaProps.children}
-    </>
-  )
-}
-
 export const Editor: React.FC = () => {
     const StorageKey = 'pages/editor:text'
     const [text,setText] = useStateWithStorage('',StorageKey);
-    const pdfs = new HTMLToPDF(
-      `
-      <Preview>
-        <ReactMarkdown children={text} />
-      </Preview>
-      `
-    )
 
   return (
     <>
       <Header>
-        <h1>Markdown to PDF Editor</h1>
-        <button onClick={()=>pdfs.convert()}>generage</button>
+        Markdown to PDF Editor
+        <button style={{float: 'right'}}>generate</button>
       </Header>
       <Wrapper>
         <TextArea 
