@@ -1,10 +1,11 @@
 import * as React from 'react'
 import styled from "styled-components"
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import jsPDF from 'jspdf'
 import  ReactMarkdown from 'react-markdown'
 import { useStateWithStorage } from '../hooks/useStateWithStorage'
-import HTMLToPDF from 'convert-html-to-pdf'
+import html2canvas from 'html2canvas';
+
 
 const Header = styled.header`
   font-size: 1.5rem;
@@ -51,12 +52,24 @@ const Preview = styled.div`
 export const Editor: React.FC = () => {
     const StorageKey = 'pages/editor:text'
     const [text,setText] = useStateWithStorage('',StorageKey);
+    const ref = useRef();
+    const _exportPdf = () => {
+      if(!document.getElementById("capture")) return
+      html2canvas(document.getElementById("capture")).then(canvas => {
+         document.body.appendChild(canvas);  // if you want see your screenshot in body.
+         const imgData = canvas.toDataURL('image/png');
+         const pdf = new jsPDF();
+         pdf.addImage(imgData, 'PNG', 0, 0);
+         pdf.save("download.pdf"); 
+     });
+ 
+  }
 
   return (
     <>
       <Header>
         Markdown to PDF Editor
-        <button style={{float: 'right'}}>generate</button>
+        <button style={{float: 'right'}} onClick={_exportPdf}>generate</button>
       </Header>
       <Wrapper>
         <TextArea 
@@ -64,9 +77,11 @@ export const Editor: React.FC = () => {
             )}
         value={text}
          />
-            <Preview>
-                <ReactMarkdown children={text} />
-            </Preview>
+         <div>
+          <Preview id="capture">
+              <ReactMarkdown children={text} />
+          </Preview>
+         </div>
       </Wrapper>
     </>
   )
