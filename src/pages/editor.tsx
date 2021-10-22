@@ -42,7 +42,7 @@ const Preview = styled.div`
   border-top: 1px solid silver;
   bottom: 0;
   overflow-y: scroll;
-  padding: 1rem;
+  padding: 2rem;
   position: absolute;
   right: 0;
   top: 0;
@@ -77,8 +77,8 @@ export const Editor: React.FC = () => {
             )}
         value={text}
          />
-         <div>
-          <Preview id="capture">
+         <div >
+          <Preview id="capture" >
               <ReactMarkdown children={text} />
           </Preview>
          </div>
